@@ -5,9 +5,11 @@ export default {
     extend: {
       colors: {
         uwjsa: "#7a0606", // tweak if your logo hex is different
+        cream: "#FFFDEF", // adding the cream background color
       },
     },
   },
   plugins: [],
 };
+
 

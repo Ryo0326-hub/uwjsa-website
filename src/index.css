@@ -3,7 +3,18 @@
 @tailwind utilities;
 
 html, body, #root {
-  @apply w-full h-full m-0 p-0 bg-white text-black overflow-x-hidden;
+  @apply w-full h-full m-0 p-0 bg-cream text-black overflow-x-hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 :root {
@@ -75,3 +86,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+

@@ -1,7 +1,10 @@
 // src/components/HeroSplit.jsx
 import logo from "../assets/wusa.png";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function HeroSplit() {
+  const { language } = useLanguage();
+  
   return (
     <section className="w-full py-8">
       {/* centring wrapper */}
