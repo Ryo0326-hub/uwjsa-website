@@ -17,6 +17,73 @@ html, body, #root {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* Smooth swing animation for polaroid photos */
+@keyframes swing {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(2deg); }
+  20% { transform: rotate(4deg); }
+  30% { transform: rotate(3deg); }
+  40% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  60% { transform: rotate(-1deg); }
+  70% { transform: rotate(-3deg); }
+  80% { transform: rotate(-4deg); }
+  90% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.polaroid-swing {
+  transform-origin: top center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.polaroid-swing:hover {
+  animation: swing 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+/* Cherry blossom petals animation */
+@keyframes fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(30px);
+  }
+}
+
+.cherry-blossom-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.cherry-petal-image {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: fall linear infinite, sway ease-in-out infinite;
+  opacity: 0.7;
+  filter: brightness(1.1) saturate(1.2);
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
