@@ -86,7 +86,7 @@ export default function UpcomingEvents() {
           </div>
 
           {/* Calendar days */}
-          <div className="grid grid-cols-7">
+          <div className="grid grid-cols-7 min-h-[200px]">
             {calendarDays.map((day, i) => {
               // Check if there's an event on this day
               const hasEvent = day && eventsThisMonth.some(event =>
@@ -135,30 +135,32 @@ export default function UpcomingEvents() {
                           <img
                             src={catStamp}
                             alt="Today"
-                            className="w-16 h-16 object-contain"
+                            className="w-12 h-12 object-contain"
                           />
                         </div>
                       )}
 
-                      {hasEvent && (
-                        <div className={`mt-1 p-1 text-xs bg-white rounded border shadow-sm ${
-                          language === 'en' ? 'border-red-400' : 'border-blue-400'
-                        }`}>
-                          <div className={`font-medium ${
-                            language === 'en' ? 'text-red-600' : 'text-blue-600'
+                      <div className="mt-1 space-y-1 max-h-[calc(100%-2rem)] overflow-hidden">
+                        {hasEvent && (
+                          <div className={`p-1 text-xs bg-white rounded border shadow-sm ${
+                            language === 'en' ? 'border-red-400' : 'border-blue-400'
                           }`}>
-                            {language === 'en' ? dayEvent.title : dayEvent.titleJp || dayEvent.title}
+                            <div className={`font-medium truncate ${
+                              language === 'en' ? 'text-red-600' : 'text-blue-600'
+                            }`}>
+                              {language === 'en' ? dayEvent.title : dayEvent.titleJp || dayEvent.title}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      {hasHoliday && (
-                        <div className="mt-1 p-1 text-xs bg-white rounded border border-green-400 shadow-sm">
-                          <div className="font-medium text-green-600">
-                            {language === 'en' ? dayHoliday.name : dayHoliday.nameJp || dayHoliday.name}
+                        {hasHoliday && (
+                          <div className="p-1 text-xs bg-white rounded border border-green-400 shadow-sm">
+                            <div className="font-medium truncate text-green-600">
+                              {language === 'en' ? dayHoliday.name : dayHoliday.nameJp || dayHoliday.name}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
