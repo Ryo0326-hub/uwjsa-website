@@ -225,11 +225,6 @@ export default function UpcomingEvents() {
             </details>
           ))}
         </div>
-
-        {/* Japanese-inspired decorative element */}
-        <div className="mt-8 flex justify-center">
-          <div className="w-24 h-1 bg-gradient-to-r from-pink-200 via-uwjsa to-pink-200 rounded-full"></div>
-        </div>
       </div>
     </section>
   );
