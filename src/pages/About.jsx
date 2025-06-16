@@ -1,6 +1,19 @@
 import { useLanguage } from "../context/LanguageContext";
 import firstmeetup from "../assets/firstmeetup.jpg";
 import firstmeetup2 from "../assets/firstmeetup2.JPG";
+// Import team member photos
+import ellyPhoto from "../assets/elly.jpg";
+import conanPhoto from "../assets/conan.png";
+import senaPhoto from "../assets/sena.jpg";
+import miaPhoto from "../assets/mia_stieda.jpg";
+import kaiPhoto from "../assets/kai_tofflemire.jpg";
+import ianPhoto from "../assets/Ian_woodmansey.jpg";
+import kaitlynPhoto from "../assets/Kaitlyn.jpg";
+import tristenPhoto from "../assets/tristen.jpg";
+import miuPhoto from "../assets/miu.jpg";
+import brittanyPhoto from "../assets/brittany.jpg";
+import ayakaPhoto from "../assets/ayaka_tazumi.jpg";
+import ryoPhoto from "../assets/ryo.jpg";
 
 // Team member polaroid card component
 function TeamMemberCard({ role, name, photo, isPresident = false }) {
@@ -184,7 +197,7 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('coPresident')}
                   name="Elly" 
-                  photo={import.meta.env.BASE_URL + "src/assets/elly.jpg"}
+                  photo={ellyPhoto}
                   isPresident={true} 
                 />
               </div>
@@ -192,7 +205,7 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('coPresident')}
                   name="Conan" 
-                  photo={import.meta.env.BASE_URL + "src/assets/conan.png"}
+                  photo={conanPhoto}
                   isPresident={true} 
                 />
               </div>
@@ -209,28 +222,28 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('headOfEvents')}
                   name="Sena" 
-                  photo={import.meta.env.BASE_URL + "src/assets/sena.jpg"}
+                  photo={senaPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('headOfEvents')}
                   name="Mia" 
-                  photo={import.meta.env.BASE_URL + "src/assets/mia_stieda.jpg"}
+                  photo={miaPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('headOfEvents')}
                   name="Kai" 
-                  photo={import.meta.env.BASE_URL + "src/assets/kai_tofflemire.jpg"}
+                  photo={kaiPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('eventsCoordinator')}
                   name="Ian" 
-                  photo={import.meta.env.BASE_URL + "src/assets/Ian_woodmansey.jpg"}
+                  photo={ianPhoto}
                 />
               </div>
             </div>
@@ -246,14 +259,14 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('headOfMarketing')}
                   name="Kaitlyn" 
-                  photo={import.meta.env.BASE_URL + "src/assets/Kaitlyn.jpg"}
+                  photo={kaitlynPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('commsAndGrowth')}
                   name="Tristen" 
-                  photo={import.meta.env.BASE_URL + "src/assets/tristen.jpg"}
+                  photo={tristenPhoto}
                 />
               </div>
             </div>
@@ -269,14 +282,14 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('juniorExecutive')}
                   name="Miu" 
-                  photo={import.meta.env.BASE_URL + "src/assets/miu.jpg"}
+                  photo={miuPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('juniorExecutive')}
                   name="Brittany" 
-                  photo={import.meta.env.BASE_URL + "src/assets/brittany.jpg"}
+                  photo={brittanyPhoto}
                 />
               </div>
             </div>
@@ -292,14 +305,14 @@ export default function About() {
                 <TeamMemberCard 
                   role={getTranslatedRole('treasurer')}
                   name="Ayaka" 
-                  photo={import.meta.env.BASE_URL + "src/assets/ayaka_tazumi.jpg"}
+                  photo={ayakaPhoto}
                 />
               </div>
               <div className="w-48">
                 <TeamMemberCard 
                   role={getTranslatedRole('headOfFinance')}
                   name="Ryo" 
-                  photo={import.meta.env.BASE_URL + "src/assets/ryo.jpg"}
+                  photo={ryoPhoto}
                 />
               </div>
             </div>
