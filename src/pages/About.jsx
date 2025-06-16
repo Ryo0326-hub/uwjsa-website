@@ -3,12 +3,16 @@ import firstmeetup from "../assets/firstmeetup.jpg";
 import firstmeetup2 from "../assets/firstmeetup2.JPG";
 
 // Team member polaroid card component
-function TeamMemberCard({ role, name, isPresident = false }) {
+function TeamMemberCard({ role, name, photo, isPresident = false }) {
   return (
     <div className="bg-white p-4 shadow-lg transform transition-transform duration-300 hover:rotate-1 -rotate-1" style={{ aspectRatio: '3/4' }}>
       {/* Polaroid photo area */}
-      <div className="w-full bg-gray-200 mb-4 flex items-center justify-center" style={{ aspectRatio: '4/3' }}>
-        <span className="text-gray-400 text-sm">Photo</span>
+      <div className="w-full bg-gray-200 mb-4 flex items-center justify-center overflow-hidden" style={{ aspectRatio: '1/1' }}>
+        <img
+          src={photo}
+          alt={`${name} - ${role}`}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Polaroid caption area */}
@@ -25,33 +29,17 @@ function TeamMemberCard({ role, name, isPresident = false }) {
   );
 }
 
-// Polaroid photo component with string, clip, and swing animation
+// Simple polaroid photo component without strings and clips
 function PolaroidPhoto({ src, alt, label, className = "" }) {
   return (
-    <div className={`relative ${className}`}>
-      {/* String extending upward */}
-      <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-0.5 h-20 bg-gray-400"></div>
-
-      {/* Clip */}
-      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-        <div className="w-6 h-4 bg-gradient-to-b from-gray-300 to-gray-500 rounded-sm shadow-md relative">
-          {/* Clip details */}
-          <div className="absolute inset-x-1 top-0.5 h-0.5 bg-gray-600 rounded"></div>
-          <div className="absolute inset-x-1 bottom-0.5 h-0.5 bg-gray-600 rounded"></div>
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-gray-600 rounded-full"></div>
-        </div>
-      </div>
-
-      {/* Polaroid with swing animation */}
-      <div className="bg-white p-3 shadow-lg polaroid-swing">
-        <img
-          src={src}
-          alt={alt}
-          className="w-full h-48 object-cover"
-        />
-        <div className="mt-2 text-center">
-          <p className="text-red-600 text-lg font-medium">{label}</p>
-        </div>
+    <div className={`bg-white p-3 shadow-lg transform transition-transform duration-300 hover:scale-105 ${className}`}>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-48 object-cover"
+      />
+      <div className="mt-2 text-center">
+        <p className="text-black-600 text-lg font-medium">{label}</p>
       </div>
     </div>
   );
@@ -91,7 +79,48 @@ export default function About() {
     }
   };
 
-  const t = content[language];
+  const t = {
+    ...content[language],
+    roles: {
+      coPresident: {
+        en: "Co-President",
+        jp: "共同代表"
+      },
+      headOfEvents: {
+        en: "Head of Events",
+        jp: "イベント部長"
+      },
+      eventsCoordinator: {
+        en: "Events Coordinator",
+        jp: "イベントコーディネーター"
+      },
+      headOfMarketing: {
+        en: "Head of Marketing",
+        jp: "マーケティング部長"
+      },
+      commsAndGrowth: {
+        en: "Comms & Growth Coordinator",
+        jp: "広報・成長コーディネーター"
+      },
+      juniorExecutive: {
+        en: "Junior Executive",
+        jp: "ジュニアエグゼクティブ"
+      },
+      treasurer: {
+        en: "Treasurer",
+        jp: "会計"
+      },
+      headOfFinance: {
+        en: "Head of Finance",
+        jp: "財務部長"
+      }
+    }
+  };
+
+  // Helper function to get translated role
+  const getTranslatedRole = (roleKey) => {
+    return t.roles[roleKey][language === 'en' ? 'en' : 'jp'];
+  };
 
   // Use darker gradients for both languages to match intensity
   const backgroundGradient = language === 'jp'
@@ -103,15 +132,9 @@ export default function About() {
       {/* About Us Content Section */}
       <section className="w-full py-16 bg-transparent">
         <div className="mx-auto max-w-4xl px-4">
-          {/* Polaroid Photos with hanging string from navbar */}
-          <div className="relative mb-12">
-            {/* Main horizontal string extending from behind navbar */}
-            <div className="absolute -top-20 left-1/4 right-1/4 h-0.5 bg-gray-400 z-0"></div>
-
-            {/* String extending up to behind navbar */}
-            <div className="absolute -top-32 left-1/2 transform -translate-x-1/2 w-0.5 h-12 bg-gray-400 z-0"></div>
-
-            <div className="flex justify-center items-start gap-8 pt-8 flex-wrap relative z-10">
+          {/* Polaroid Photos */}
+          <div className="mb-12">
+            <div className="flex justify-center items-start gap-8 pt-8 flex-wrap">
               <PolaroidPhoto
                 src={firstmeetup}
                 alt="University of Waterloo group photo"
@@ -154,80 +177,130 @@ export default function About() {
           {/* Presidents Section */}
           <div className="mb-12">
             <h2 className="text-2xl font-semibold text-center mb-6 text-black">
-              {t.presidents}
+              {language === 'en' ? 'Co-Presidents' : '共同代表'}
             </h2>
             <div className="flex justify-center gap-6 flex-wrap">
-              <div className="w-40">
-                <TeamMemberCard role={t.presidents} name="Conan" isPresident={true} />
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('coPresident')}
+                  name="Elly" 
+                  photo={import.meta.env.BASE_URL + "src/assets/elly.jpg"}
+                  isPresident={true} 
+                />
               </div>
-              <div className="w-40">
-                <TeamMemberCard role={t.presidents} name="Elly" isPresident={true} />
-              </div>
-            </div>
-          </div>
-
-          {/* Secretary & Events Head Section */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-center mb-6 text-black">
-              {t.secretaryAndEvents}
-            </h2>
-            <div className="flex justify-center gap-6 flex-wrap max-w-6xl mx-auto">
-              <div className="w-40">
-                <TeamMemberCard role="Secretary" name="Ayaka" />
-              </div>
-              <div className="w-40">
-                <TeamMemberCard role="Events Head" name="Mia" />
-              </div>
-              <div className="w-40">
-                <TeamMemberCard role="Events Head" name="Kai" />
-              </div>
-              <div className="w-40">
-                <TeamMemberCard role="Events Head" name="Sena" />
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('coPresident')}
+                  name="Conan" 
+                  photo={import.meta.env.BASE_URL + "src/assets/conan.png"}
+                  isPresident={true} 
+                />
               </div>
             </div>
           </div>
 
-          {/* Marketing & Communications Head Section */}
+          {/* Events Section */}
           <div className="mb-12">
             <h2 className="text-2xl font-semibold text-center mb-6 text-black">
-              {t.marketingAndComms}
-            </h2>
-            <div className="flex justify-center gap-6 flex-wrap max-w-5xl mx-auto">
-              <div className="w-40">
-                <TeamMemberCard role="Marketing Head" name="Sidney" />
-              </div>
-              <div className="w-40">
-                <TeamMemberCard role="Marketing Head" name="Kaitlyn" />
-              </div>
-              <div className="w-40">
-                <TeamMemberCard role="Communications Head" name="Manami" />
-              </div>
-            </div>
-          </div>
-
-          {/* Junior Execs & Advisor Section */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-semibold text-center mb-6 text-black">
-              {t.juniorExecsAndAdvisor}
+              {language === 'en' ? 'Events' : 'イベント'}
             </h2>
             <div className="flex justify-center gap-6 flex-wrap">
-              <div className="w-40">
-                <TeamMemberCard role="Junior Exec" name="Miu" />
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('headOfEvents')}
+                  name="Sena" 
+                  photo={import.meta.env.BASE_URL + "src/assets/sena.jpg"}
+                />
               </div>
-              <div className="w-40">
-                <TeamMemberCard role="Advisor" name="Max" />
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('headOfEvents')}
+                  name="Mia" 
+                  photo={import.meta.env.BASE_URL + "src/assets/mia_stieda.jpg"}
+                />
+              </div>
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('headOfEvents')}
+                  name="Kai" 
+                  photo={import.meta.env.BASE_URL + "src/assets/kai_tofflemire.jpg"}
+                />
+              </div>
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('eventsCoordinator')}
+                  name="Ian" 
+                  photo={import.meta.env.BASE_URL + "src/assets/Ian_woodmansey.jpg"}
+                />
               </div>
             </div>
           </div>
 
-          {/* Finance Head Section */}
+          {/* Marketing & Communications Section */}
           <div className="mb-12">
             <h2 className="text-2xl font-semibold text-center mb-6 text-black">
-              {t.financeHead}
+              {language === 'en' ? 'Marketing & Communications' : 'マーケティング・広報'}
             </h2>
-            <div className="flex justify-center">
-              <div className="w-40">
-                <TeamMemberCard role={t.financeHead} name="Ryo" />
+            <div className="flex justify-center gap-6 flex-wrap">
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('headOfMarketing')}
+                  name="Kaitlyn" 
+                  photo={import.meta.env.BASE_URL + "src/assets/Kaitlyn.jpg"}
+                />
+              </div>
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('commsAndGrowth')}
+                  name="Tristen" 
+                  photo={import.meta.env.BASE_URL + "src/assets/tristen.jpg"}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Junior Executives Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold text-center mb-6 text-black">
+              {language === 'en' ? 'Junior Executives' : 'ジュニアエグゼクティブ'}
+            </h2>
+            <div className="flex justify-center gap-6 flex-wrap">
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('juniorExecutive')}
+                  name="Miu" 
+                  photo={import.meta.env.BASE_URL + "src/assets/miu.jpg"}
+                />
+              </div>
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('juniorExecutive')}
+                  name="Brittany" 
+                  photo={import.meta.env.BASE_URL + "src/assets/brittany.jpg"}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Finance Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold text-center mb-6 text-black">
+              {language === 'en' ? 'Finance' : '財務'}
+            </h2>
+            <div className="flex justify-center gap-6 flex-wrap">
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('treasurer')}
+                  name="Ayaka" 
+                  photo={import.meta.env.BASE_URL + "src/assets/ayaka_tazumi.jpg"}
+                />
+              </div>
+              <div className="w-48">
+                <TeamMemberCard 
+                  role={getTranslatedRole('headOfFinance')}
+                  name="Ryo" 
+                  photo={import.meta.env.BASE_URL + "src/assets/ryo.jpg"}
+                />
               </div>
             </div>
           </div>

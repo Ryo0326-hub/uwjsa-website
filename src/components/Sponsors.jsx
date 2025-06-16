@@ -8,7 +8,7 @@ export default function Sponsors() {
     <section className="w-full py-6 bg-white">
       <div className="mx-auto max-w-4xl text-center px-4">
         <h2 className="mb-4 text-2xl font-semibold text-black">
-          {language === 'en' ? 'Our Sponsors' : 'スポンサー'}
+          {language === 'en' ? 'Our Sponsor' : 'スポンサー'}
         </h2>
         <img
           src={wusa}

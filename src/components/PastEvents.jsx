@@ -7,17 +7,30 @@ export default function PastEvents() {
   const scrollRef = useRef(null);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Create a very large array for infinite scrolling (repeat events many times)
   const infiniteEvents = Array(20).fill(past).flat();
 
-  // Auto-scroll effect for continuous movement
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is typical mobile breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Auto-scroll effect for continuous movement (disabled on mobile)
   useEffect(() => {
     const scrollContainer = scrollRef.current;
-    if (!scrollContainer || !isAutoScrolling) return;
+    if (!scrollContainer || !isAutoScrolling || isMobile) return;
 
     const autoScroll = () => {
-      if (scrollContainer && isAutoScrolling) {
+      if (scrollContainer && isAutoScrolling && !isMobile) {
         scrollContainer.scrollLeft += 1; // Slow continuous scroll
 
         // Reset to beginning when we reach the end
@@ -30,27 +43,35 @@ export default function PastEvents() {
     const interval = setInterval(autoScroll, 50); // Adjust speed here (lower = faster)
 
     return () => clearInterval(interval);
-  }, [isAutoScrolling]);
+  }, [isAutoScrolling, isMobile]);
 
-  // Pause auto-scroll on hover
-  const handleMouseEnter = () => setIsAutoScrolling(false);
-  const handleMouseLeave = () => setIsAutoScrolling(true);
+  // Pause auto-scroll on hover (only on desktop)
+  const handleMouseEnter = () => {
+    if (!isMobile) setIsAutoScrolling(false);
+  };
+  const handleMouseLeave = () => {
+    if (!isMobile) setIsAutoScrolling(true);
+  };
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      setIsAutoScrolling(false); // Pause auto-scroll
+      if (!isMobile) setIsAutoScrolling(false); // Pause auto-scroll only on desktop
       scrollRef.current.scrollBy({ left: -280, behavior: 'smooth' });
-      // Resume auto-scroll after a delay
-      setTimeout(() => setIsAutoScrolling(true), 2000);
+      // Resume auto-scroll after a delay (only on desktop)
+      if (!isMobile) {
+        setTimeout(() => setIsAutoScrolling(true), 2000);
+      }
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      setIsAutoScrolling(false); // Pause auto-scroll
+      if (!isMobile) setIsAutoScrolling(false); // Pause auto-scroll only on desktop
       scrollRef.current.scrollBy({ left: 280, behavior: 'smooth' });
-      // Resume auto-scroll after a delay
-      setTimeout(() => setIsAutoScrolling(true), 2000);
+      // Resume auto-scroll after a delay (only on desktop)
+      if (!isMobile) {
+        setTimeout(() => setIsAutoScrolling(true), 2000);
+      }
     }
   };
 
@@ -71,14 +92,16 @@ export default function PastEvents() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Navigation buttons */}
-        <button
-          onClick={scrollLeft}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-uwjsa"
-          aria-label="Previous events"
-        >
-          ←
-        </button>
+        {/* Navigation buttons (hidden on mobile) */}
+        {!isMobile && (
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-uwjsa"
+            aria-label="Previous events"
+          >
+            ←
+          </button>
+        )}
 
         {/* OUTER scrolling frame - infinite scroll */}
         <div
@@ -132,13 +155,15 @@ export default function PastEvents() {
           </div>
         </div>
 
-        <button
-          onClick={scrollRight}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-uwjsa"
-          aria-label="Next events"
-        >
-          →
-        </button>
+        {!isMobile && (
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow-md text-uwjsa"
+            aria-label="Next events"
+          >
+            →
+          </button>
+        )}
       </div>
     </section>
   );

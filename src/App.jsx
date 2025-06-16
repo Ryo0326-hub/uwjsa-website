@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
 import sakura from "./assets/sakura.jpeg";
+import { Analytics } from "@vercel/analytics/react"
 
 // Cherry Blossom Petals Component
 function CherryBlossomPetals() {
@@ -48,9 +49,12 @@ export default function App() {
 
           <Footer />
         </div>
+        <Analytics />
       </BrowserRouter>
     </LanguageProvider>
   );
 }
+
+
 
 

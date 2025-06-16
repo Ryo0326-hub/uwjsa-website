@@ -17,29 +17,7 @@ html, body, #root {
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Smooth swing animation for polaroid photos */
-@keyframes swing {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(2deg); }
-  20% { transform: rotate(4deg); }
-  30% { transform: rotate(3deg); }
-  40% { transform: rotate(1deg); }
-  50% { transform: rotate(0deg); }
-  60% { transform: rotate(-1deg); }
-  70% { transform: rotate(-3deg); }
-  80% { transform: rotate(-4deg); }
-  90% { transform: rotate(-2deg); }
-  100% { transform: rotate(0deg); }
-}
 
-.polaroid-swing {
-  transform-origin: top center;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.polaroid-swing:hover {
-  animation: swing 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-}
 
 /* Cherry blossom petals animation */
 @keyframes fall {

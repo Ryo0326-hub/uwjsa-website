@@ -2,10 +2,11 @@ import { upcoming, japaneseHolidays } from "../data/events";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, isToday, isSameDay } from "date-fns";
 import { useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import catStamp from "../assets/cat.png";
 
 export default function UpcomingEvents() {
   const { language } = useLanguage();
-  const [currentMonth, setCurrentMonth] = useState(new Date(2025, 4)); // May 2025
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Use current date instead of hardcoded May 2025
 
   // Get days for the current month
   const monthStart = startOfMonth(currentMonth);
@@ -112,26 +113,40 @@ export default function UpcomingEvents() {
               return (
                 <div
                   key={i}
-                  className={`min-h-24 p-1 border-b border-r border-gray-200 ${
+                  className={`min-h-24 p-1 border-b border-r border-gray-200 relative ${
                     !day ? 'bg-gray-50' :
-                    isToday(day) ? 'bg-blue-50' :
                     hasHoliday ? 'bg-green-50' :
-                    hasEvent ? 'bg-blue-50' : ''
+                    hasEvent ? language === 'en' ? 'bg-red-50' : 'bg-blue-50' : ''
                   }`}
                 >
                   {day && (
                     <>
                       <div className={`text-right p-1 ${
-                        isToday(day) ? 'text-blue-600 font-bold' :
+                        isToday(day) ? 'text-yellow-600 font-bold' :
                         hasHoliday ? 'text-green-600 font-medium' :
-                        hasEvent ? 'text-blue-500 font-medium' : 'text-gray-700'
+                        hasEvent ? language === 'en' ? 'text-red-500 font-medium' : 'text-blue-500 font-medium' :
+                        'text-gray-700'
                       }`}>
                         {format(day, "d")}
                       </div>
 
+                      {isToday(day) && (
+                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
+                          <img
+                            src={catStamp}
+                            alt="Today"
+                            className="w-16 h-16 object-contain"
+                          />
+                        </div>
+                      )}
+
                       {hasEvent && (
-                        <div className="mt-1 p-1 text-xs bg-white rounded border border-blue-400 shadow-sm">
-                          <div className="font-medium text-blue-600">
+                        <div className={`mt-1 p-1 text-xs bg-white rounded border shadow-sm ${
+                          language === 'en' ? 'border-red-400' : 'border-blue-400'
+                        }`}>
+                          <div className={`font-medium ${
+                            language === 'en' ? 'text-red-600' : 'text-blue-600'
+                          }`}>
                             {language === 'en' ? dayEvent.title : dayEvent.titleJp || dayEvent.title}
                           </div>
                         </div>
@@ -158,17 +173,23 @@ export default function UpcomingEvents() {
           {eventsThisMonth.map((ev) => (
             <details
               key={`event-${ev.id}`}
-              className="rounded-lg border border-blue-200 open:shadow-md transition-all duration-200"
+              className={`rounded-lg border open:shadow-md transition-all duration-200 ${
+                language === 'en' ? 'border-red-200' : 'border-blue-200'
+              }`}
             >
-              <summary className="cursor-pointer py-3 px-4 font-medium bg-blue-50 hover:bg-blue-100 flex justify-between items-center">
+              <summary className={`cursor-pointer py-3 px-4 font-medium flex justify-between items-center ${
+                language === 'en' ? 'bg-red-50 hover:bg-red-100' : 'bg-blue-50 hover:bg-blue-100'
+              }`}>
                 <span>
-                  <span className="text-blue-600 text-sm font-medium mr-2">[JSA Event]</span>
+                  <span className={`text-sm font-medium mr-2 ${
+                    language === 'en' ? 'text-red-600' : 'text-blue-600'
+                  }`}>[JSA Event]</span>
                   {language === 'en' ? ev.title : ev.titleJp || ev.title} —
                   {language === 'en'
                     ? format(new Date(ev.date), "PPP")
                     : `${new Date(ev.date).getFullYear()}年${new Date(ev.date).getMonth() + 1}月${new Date(ev.date).getDate()}日`}
                 </span>
-                <span className="text-blue-600">→</span>
+                <span className={language === 'en' ? 'text-red-600' : 'text-blue-600'}>→</span>
               </summary>
 
               {ev.description && (
