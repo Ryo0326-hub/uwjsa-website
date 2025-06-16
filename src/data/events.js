@@ -72,10 +72,10 @@ export const upcoming = [
   {
     id: 1,
     title: "Onigiri Potluck Event (Members-only)",
-    titleJp: "おにぎり持ち寄り会（会員限定）",
+    titleJp: "おにぎり持ち寄りパーティー（会員限定）",
     date: "2025-06-22T18:00:00",
-    description: "Join us for a members-only onigiri potluck event! Bring your favorite onigiri to share with fellow members.",
-    descriptionJp: "会員限定のおにぎり持ち寄り会に参加しましょう！お気に入りのおにぎりを持ち寄って、会員同士で共有しましょう。",
+    description: "Join us for a members-only onigiri potluck event!",
+    descriptionJp: "会員限定のおにぎりポットラックイベントにご参加ください！",
     location: "TBD"
   },
   {
@@ -83,8 +83,8 @@ export const upcoming = [
     title: "Games Night x Matcha",
     titleJp: "ゲームナイト × 抹茶",
     date: "2025-06-25T18:00:00",
-    description: "Enjoy an evening of games and matcha! We'll have various Japanese and Western games available.",
-    descriptionJp: "ゲームと抹茶を楽しむ夜！様々な日本と西洋のゲームをご用意しています。",
+    description: "Enjoy an evening of games and matcha! We'll have various Japanese games, as well as classic ones available.",
+    descriptionJp: "ゲームと抹茶を楽しむ夜！様々なゲームをご用意しています。",
     location: "EV1"
   },
   {
@@ -93,13 +93,13 @@ export const upcoming = [
     titleJp: "抹茶カフェ募金会",
     date: "2025-07-03T10:00:00",
     description: "Support JSA while enjoying delicious matcha treats! All proceeds go towards future JSA events.",
-    descriptionJp: "美味しい抹茶スイーツを楽しみながらJSAをサポートしましょう！収益は今後のJSAイベントに使われます。",
+    descriptionJp: "美味しい抹茶スイーツをご用意しています！",
     location: "SLC Marketplace"
   },
   {
     id: 4,
     title: "Tanabata",
-    titleJp: "七夕",
+    titleJp: "七夕短冊飾りイベント",
     date: "2025-07-07T17:00:00",
     description: "Celebrate the Star Festival with us! Write your wishes on tanzaku and hang them on our bamboo tree.",
     descriptionJp: "七夕祭りを一緒に祝いましょう！短冊に願い事を書いて、笹の木に飾りましょう。",
