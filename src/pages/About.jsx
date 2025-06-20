@@ -24,7 +24,7 @@ function TeamMemberCard({ role, name, photo, isPresident = false }) {
         <img
           src={photo}
           alt={`${name} - ${role}`}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover ${name === 'Tristen' || name === 'Mia' ? 'scale-110' : ''}`}
         />
       </div>
 
@@ -45,7 +45,7 @@ function TeamMemberCard({ role, name, photo, isPresident = false }) {
 // Simple polaroid photo component without strings and clips
 function PolaroidPhoto({ src, alt, label, className = "" }) {
   return (
-    <div className={`bg-white p-3 shadow-lg transform transition-transform duration-300 hover:scale-105 ${className}`}>
+    <div className={`bg-white p-3 shadow-lg ${className}`}>
       <img
         src={src}
         alt={alt}
@@ -135,13 +135,8 @@ export default function About() {
     return t.roles[roleKey][language === 'en' ? 'en' : 'jp'];
   };
 
-  // Use darker gradients for both languages to match intensity
-  const backgroundGradient = language === 'jp'
-    ? 'bg-gradient-to-b from-white via-blue-100 to-blue-200'
-    : 'bg-gradient-to-b from-white via-red-100 to-red-200';
-
   return (
-    <div className={`min-h-screen ${backgroundGradient}`}>
+    <div className="min-h-screen bg-white">
       {/* About Us Content Section */}
       <section className="w-full py-16 bg-transparent">
         <div className="mx-auto max-w-4xl px-4">

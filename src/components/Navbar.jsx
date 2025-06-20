@@ -49,21 +49,10 @@ export default function Navbar() {
 
         {/* 2️⃣ nav links push to far right */}
         <div className="ml-auto flex items-center space-x-6 md:space-x-10 text-sm sm:text-base">
-          {/* NavLink adds an "active" class automatically if you want styling */}
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? "font-semibold underline" : "hover:opacity-80"
-            }
-          >
+          <NavLink to="/" className="hover:text-gray-300 transition-colors">
             {language === 'en' ? 'Home' : 'ホーム'}
           </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              isActive ? "font-semibold underline" : "hover:opacity-80"
-            }
-          >
+          <NavLink to="/about" className="hover:text-gray-300 transition-colors">
             {language === 'en' ? 'About' : '私たちについて'}
           </NavLink>
         </div>
